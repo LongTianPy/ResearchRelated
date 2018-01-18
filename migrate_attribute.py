@@ -64,9 +64,11 @@ if __name__ == '__main__':
         else:
             genus = df.loc[Genome_ID,"Genus"]
             species = str(genus) + "+" + str(df.loc[Genome_ID,"Species"])
-            c.execute("SELECT NCBI_Tax_ID FROM NCBI_Tax_ID WHERE Taxon='{0}'".format(species))
-            tmp = c.fetchone()
-            if len(tmp) > 0:
+            c.execute("SELECT EXISTS(SELECT NCBI_Tax_ID FROM NCBI_Tax_ID WHERE Taxon='{0}')".format(species))
+            tmp = c.fetchone()[0]
+            if tmp != 0:
+                c.execute("SELECT NCBI_Tax_ID FROM NCBI_Tax_ID WHERE Taxon='{0}'".format(species))
+                tmp = c.fetchone()
                 species_tax_id = str(tmp[0])
                 handler = Entrez.efetch(db="taxonomy", id=tax_id, rettype="xml")
                 record = Entrez.read(handler)[0]
