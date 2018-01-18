@@ -112,7 +112,7 @@ if __name__ == '__main__':
                     #     c.execute(sql.format(Genome_ID, rank_id, rank_tax_id))
                     #     conn.commit()
                     new_df.loc[Genome_ID, rank] = rank_name
-        strain_raw = df.loc[Genome_ID,"strain"].split(" ")
+        strain_raw = df.loc[Genome_ID,"Strain"].split(" ")
         strain = []
         for i in strain_raw:
             if i not in strain:
