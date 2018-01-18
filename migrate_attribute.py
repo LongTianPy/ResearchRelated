@@ -88,32 +88,37 @@ if __name__ == '__main__':
             else:
                 handler = Entrez.esearch(term=species, db="taxonomy",retmode="xml")
                 record = Entrez.read(handler)
-                species_tax_id = record["IdList"][0]
-                handler = Entrez.efetch(db="taxonomy", id=species_tax_id, rettype="xml")
-                record = Entrez.read(handler)[0]
-                LineageEx = record["LineageEx"]
-                for each_rank in LineageEx[1:]:
-                    rank_name = each_rank["ScientificName"]
-                    rank_tax_id = each_rank["TaxId"]
-                    rank = each_rank["Rank"]
-                    # c.execute("SELECT EXISTS(SELECT Rank_ID FROM Taxonomic_ranks WHERE Rank='{0}')".format(rank))
-                    # if c.fetchone()[0] == 1:
-                    #     c.execute("SELECT Rank_ID, Rank_order FROM Taxonomic_ranks WHERE Rank='{0}'".format(rank))
-                    #     tmp = c.fetchone()
-                    #     rank_id = int(tmp[0])
-                    #     rank_order = int(tmp[1])
-                    #     c.execute(
-                    #         "SELECT EXISTS(SELECT NCBI_Tax_ID FROM NCBI_Tax_ID WHERE NCBI_Tax_ID={0}) AND Rank_order={1}}".format(
-                    #             int(rank_tax_id)), rank_order)
-                    #     if c.fetchone()[0] == 0:
-                    #         c.execute(
-                    #             "INSERT INTO NCBI_Tax_ID (NCBI_Tax_ID, Taxon, Rank_order) VALUES ({0}, '{1}', {2})".format(
-                    #                 rank_tax_id, rank_name, rank_order))
-                    #         conn.commit()
-                    #     sql = "INSERT INTO Taxonomy (Genome_ID, Rank_ID, NCBI_Tax_ID) VALUES ({0}, {1}, {2})"
-                    #     c.execute(sql.format(Genome_ID, rank_id, rank_tax_id))
-                    #     conn.commit()
-                    new_df.loc[Genome_ID, rank] = rank_name
+                try:
+                    species_tax_id = record["IdList"][0]
+                    handler = Entrez.efetch(db="taxonomy", id=species_tax_id, rettype="xml")
+                    record = Entrez.read(handler)[0]
+                    LineageEx = record["LineageEx"]
+                    for each_rank in LineageEx[1:]:
+                        rank_name = each_rank["ScientificName"]
+                        rank_tax_id = each_rank["TaxId"]
+                        rank = each_rank["Rank"]
+                        # c.execute("SELECT EXISTS(SELECT Rank_ID FROM Taxonomic_ranks WHERE Rank='{0}')".format(rank))
+                        # if c.fetchone()[0] == 1:
+                        #     c.execute("SELECT Rank_ID, Rank_order FROM Taxonomic_ranks WHERE Rank='{0}'".format(rank))
+                        #     tmp = c.fetchone()
+                        #     rank_id = int(tmp[0])
+                        #     rank_order = int(tmp[1])
+                        #     c.execute(
+                        #         "SELECT EXISTS(SELECT NCBI_Tax_ID FROM NCBI_Tax_ID WHERE NCBI_Tax_ID={0}) AND Rank_order={1}}".format(
+                        #             int(rank_tax_id)), rank_order)
+                        #     if c.fetchone()[0] == 0:
+                        #         c.execute(
+                        #             "INSERT INTO NCBI_Tax_ID (NCBI_Tax_ID, Taxon, Rank_order) VALUES ({0}, '{1}', {2})".format(
+                        #                 rank_tax_id, rank_name, rank_order))
+                        #         conn.commit()
+                        #     sql = "INSERT INTO Taxonomy (Genome_ID, Rank_ID, NCBI_Tax_ID) VALUES ({0}, {1}, {2})"
+                        #     c.execute(sql.format(Genome_ID, rank_id, rank_tax_id))
+                        #     conn.commit()
+                        new_df.loc[Genome_ID, rank] = rank_name
+                except:
+                    print(species)
+                    new_df.loc[Genome_ID,"genus"] = genus
+                    new_df.loc[Genome_ID,"species"] = str(df.loc[Genome_ID,"Species"])
         strain_raw = df.loc[Genome_ID,"Strain"].split(" ")
         strain = []
         for i in strain_raw:
