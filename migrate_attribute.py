@@ -39,19 +39,6 @@ if __name__ == '__main__':
                 rank_tax_id = each_rank["TaxId"]
                 rank = each_rank["Rank"]
                 new_df.loc[Genome_ID,rank] = rank_name
-                # c.execute("SELECT EXISTS(SELECT Rank_ID FROM Taxonomic_ranks WHERE Rank='{0}')".format(rank))
-                # if c.fetchone()[0] == 1:
-                #     c.execute("SELECT Rank_ID, Rank_order FROM Taxonomic_ranks WHERE Rank='{0}'".format(rank))
-                #     tmp = c.fetchone()
-                #     rank_id = int(tmp[0])
-                #     rank_order = int(tmp[1])
-                #     c.execute("SELECT EXISTS(SELECT NCBI_Tax_ID FROM NCBI_Tax_ID WHERE NCBI_Tax_ID={0}) AND Rank_order={1}}".format(int(rank_tax_id)),rank_order)
-                #     if c.fetchone()[0] == 0:
-                #         c.execute("INSERT INTO NCBI_Tax_ID (NCBI_Tax_ID, Taxon, Rank_order) VALUES ({0}, '{1}', {2})".format(rank_tax_id, rank_name, rank_order))
-                #         conn.commit()
-                #     sql = "INSERT INTO Taxonomy (Genome_ID, Rank_ID, NCBI_Tax_ID) VALUES ({0}, {1}, {2})"
-                #     c.execute(sql.format(Genome_ID, rank_id, rank_tax_id))
-                #     conn.commit()
             # strain name is always entered by the user him-/her-self
             strain_raw = df.loc[Genome_ID, "Strain"].split(" ")
             strain = []
@@ -77,13 +64,6 @@ if __name__ == '__main__':
                     rank_name = each_rank["ScientificName"]
                     rank_tax_id = each_rank["TaxId"]
                     rank = each_rank["Rank"]
-                    # c.execute("SELECT Rank_ID, Rank_order FROM Taxonomic_ranks WHERE Rank='{0}'".format(rank))
-                    # tmp = c.fetchone()
-                    # rank_id = int(tmp[0])
-                    # rank_order = int(tmp[1])
-                    # sql = "INSERT INTO Taxonomy (Genome_ID, Rank_ID, NCBI_Tax_ID) VALUES ({0}, {1}, {2})"
-                    # c.execute(sql.format(Genome_ID, rank_id, rank_tax_id))
-                    # conn.commit()
                     new_df.loc[Genome_ID, rank] = rank_name
             else:
                 handler = Entrez.esearch(term=species, db="taxonomy",retmode="xml")
@@ -97,23 +77,6 @@ if __name__ == '__main__':
                         rank_name = each_rank["ScientificName"]
                         rank_tax_id = each_rank["TaxId"]
                         rank = each_rank["Rank"]
-                        # c.execute("SELECT EXISTS(SELECT Rank_ID FROM Taxonomic_ranks WHERE Rank='{0}')".format(rank))
-                        # if c.fetchone()[0] == 1:
-                        #     c.execute("SELECT Rank_ID, Rank_order FROM Taxonomic_ranks WHERE Rank='{0}'".format(rank))
-                        #     tmp = c.fetchone()
-                        #     rank_id = int(tmp[0])
-                        #     rank_order = int(tmp[1])
-                        #     c.execute(
-                        #         "SELECT EXISTS(SELECT NCBI_Tax_ID FROM NCBI_Tax_ID WHERE NCBI_Tax_ID={0}) AND Rank_order={1}}".format(
-                        #             int(rank_tax_id)), rank_order)
-                        #     if c.fetchone()[0] == 0:
-                        #         c.execute(
-                        #             "INSERT INTO NCBI_Tax_ID (NCBI_Tax_ID, Taxon, Rank_order) VALUES ({0}, '{1}', {2})".format(
-                        #                 rank_tax_id, rank_name, rank_order))
-                        #         conn.commit()
-                        #     sql = "INSERT INTO Taxonomy (Genome_ID, Rank_ID, NCBI_Tax_ID) VALUES ({0}, {1}, {2})"
-                        #     c.execute(sql.format(Genome_ID, rank_id, rank_tax_id))
-                        #     conn.commit()
                         new_df.loc[Genome_ID, rank] = rank_name
                 except:
                     print(species)
