@@ -141,13 +141,12 @@ def write_taxonomy_to_db(c,conn,lineage,genome_id):
             conn.commit()
 
 def main():
-    df = pd.DataFrame(columns=ranks)
     db_original = "LINdb_NCBI_RefSeq"
     db_new = "LINdb_NCBI_RefSeq_test"
     conn_original, c_original = connect_to_db(db_original)
     conn_new, c_new = connect_to_db(db_new)
     Genome_IDs, meta = extract_all_existing(c_original)
-    df.index=Genome_IDs
+    df = pd.DataFrame(columns=ranks,index=Genome_IDs)
     for Genome_ID in Genome_IDs:
         sub_meta = meta[meta["Genome_ID"]==Genome_ID]
         if sub_meta[sub_meta["Attribute_ID"]==15]["AttributeValue"][0] != "N/A":
