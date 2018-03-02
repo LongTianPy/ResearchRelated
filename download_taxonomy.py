@@ -34,6 +34,7 @@ def extract_all_existing(c):
     df["Attribute_ID"] = Attribute_ID
     df["AttributeValue"] = AttributeValue
     df.index = AttributeValue_ID
+    df.to_csv("RefSeq_meta.txt", sep="\t",index=0,header=True)
     return Genome_IDs, df
 
 def extract_taxonomy_by_taxid(tax_id,db):
