@@ -72,6 +72,9 @@ def extract_taxonomy_by_taxid(tax_id,db):
         except:
             strain_name_simple = "N/A"
         name_list["strain"] = [strain_name_simple, "N/A"]
+    for i in name_list.keys():
+        if name_list[i] == []:
+            name_list[i] = ["N/A","N/A"]
     return name_list
 
 def extract_taxonomy_by_entry(db):
