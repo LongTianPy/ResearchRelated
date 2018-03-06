@@ -128,6 +128,9 @@ def extract_taxonomy_by_entry(db):
         species_name_simple = species_name_full[len(genus_name) + 1:]
         name_list["species"][0] = species_name_simple
         name_list["strain"] = [strain,tax_id_strain]
+    for i in name_list.keys():
+        if name_list[i] == []:
+            name_list[i] = ["N/A","N/A"]
     return name_list
 
 def write_taxonomy_to_db(c,conn,lineage,genome_id):
