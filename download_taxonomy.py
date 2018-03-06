@@ -64,9 +64,9 @@ def extract_taxonomy_by_taxid(tax_id,db):
             species_name_simple = species_name_full[len(genus_name) + 1:]
             name_list["species"][0] = species_name_simple
         else:
-            species_name_simple = db[db["Attribute_ID"==2]]["AttributeValue"][0]
+            species_name_simple = str(db[db["Attribute_ID"==2]]["AttributeValue"])
             name_list["species"] = [species_name_simple,"N/A"]
-        strain_name_simple = db[db["Attribute_ID"==4]]["AttributeValue"][0]
+        strain_name_simple = str(db[db["Attribute_ID"==4]]["AttributeValue"])
         name_list["strain"] = [strain_name_simple, "N/A"]
     return name_list
 
@@ -150,8 +150,8 @@ def main():
     df = pd.DataFrame(columns=ranks,index=Genome_IDs)
     for Genome_ID in Genome_IDs:
         sub_meta = meta[meta["Genome_ID"]==Genome_ID]
-        if sub_meta[sub_meta["Attribute_ID"]==15]["AttributeValue"][0] != "N/A":
-            tax_id_uploaded = sub_meta[sub_meta["Attribute_ID"]==15]["AttributeValue"][0]
+        if str(sub_meta[sub_meta["Attribute_ID"]==15]["AttributeValue"]) != "N/A":
+            tax_id_uploaded = int(sub_meta[sub_meta["Attribute_ID"]==15]["AttributeValue"])
             lineage = extract_taxonomy_by_taxid(tax_id_uploaded,sub_meta)
         else:
             lineage = extract_taxonomy_by_entry(sub_meta)
