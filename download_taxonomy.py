@@ -6,6 +6,7 @@
 from MySQLdb import Connect
 import pandas as pd
 from Bio import Entrez
+import sys
 
 # VARIABLES
 Entrez.email = "aaa@bb.cc"
@@ -159,7 +160,13 @@ def main():
         else:
             lineage = extract_taxonomy_by_entry(sub_meta)
         for rank in ranks:
-            df.loc[Genome_ID,rank] = lineage[rank][0]
+            try:
+                df.loc[Genome_ID,rank] = lineage[rank][0]
+            except:
+                print(rank)
+                print(lineage[rank])
+                sys.exit()
+        df.to_csv("taxonomy_to_load.txt",sep='\t',header=True,index=True)
         # write_taxonomy_to_db(c_new,conn_new,lineage,Genome_ID)
 
 
