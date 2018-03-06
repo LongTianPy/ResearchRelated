@@ -160,10 +160,10 @@ def main():
     df = pd.DataFrame(columns=ranks,index=Genome_IDs)
     for Genome_ID in Genome_IDs:
         sub_meta = meta[meta["Genome_ID"]==Genome_ID]
-        if str(sub_meta[sub_meta["Attribute_ID"]==15]["AttributeValue"]) != "N/A":
+        try:
             tax_id_uploaded = int(sub_meta[sub_meta["Attribute_ID"]==15]["AttributeValue"])
             lineage = extract_taxonomy_by_taxid(tax_id_uploaded,sub_meta)
-        else:
+        except:
             lineage = extract_taxonomy_by_entry(sub_meta)
         for rank in ranks:
             try:
