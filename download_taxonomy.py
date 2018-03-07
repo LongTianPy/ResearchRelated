@@ -126,7 +126,11 @@ def extract_taxonomy_by_entry(db):
         for taxon in lineage_list:
             if taxon["Rank"] in name_list:
                 name_list[taxon["Rank"]] = [taxon["ScientificName"], taxon["TaxId"]]
-        species_name_full = name_list["species"][0]
+        try:
+            species_name_full = name_list["species"][0]
+        except:
+            print(name_list)
+            sys.exit()
         genus_name = name_list["genus"][0]
         species_name_simple = species_name_full[len(genus_name) + 1:]
         name_list["species"][0] = species_name_simple
