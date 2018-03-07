@@ -79,10 +79,10 @@ def extract_taxonomy_by_taxid(tax_id,db):
 
 def extract_taxonomy_by_entry(db):
     name_list = {rank: [] for rank in ranks}
-    given_lineage = db[db["Attribute_ID"]<5]["AttributeValue"]
-    genus = given_lineage[0]
-    species = given_lineage[1]
-    strain = given_lineage[3]
+    given_lineage = db[db["Attribute_ID"]<5]
+    genus = given_lineage.iloc[0,2]
+    species = given_lineage.iloc[1,2]
+    strain = given_lineage.iloc[3,2]
     handler_strain = Entrez.esearch(db='taxonomy',term=' '.join([genus,species,strain]))
     record_strain = Entrez.read(handler_strain)
     if record_strain["Count"] == '0':
