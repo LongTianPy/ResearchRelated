@@ -119,7 +119,7 @@ def extract_taxonomy_by_entry(db):
             name_list["species"] = [species,tax_id_species]
         name_list["strain"] = [strain, "N/A"]
     else:
-        tax_id_strain = record_species["IdList"][0]
+        tax_id_strain = record_strain["IdList"][0]
         handler_strain = Entrez.efetch(db='taxonomy',id=tax_id_strain,retmode='xml')
         record_strain = Entrez.read(handler_strain)[0]
         lineage_list = record_strain["LineageEx"]
