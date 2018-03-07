@@ -129,6 +129,7 @@ def extract_taxonomy_by_entry(db):
         try:
             species_name_full = name_list["species"][0]
         except:
+            print(genus + " " + species + " " + strain)
             print(tax_id_strain)
             print(name_list)
             sys.exit()
