@@ -126,17 +126,16 @@ def extract_taxonomy_by_entry(db):
         for taxon in lineage_list:
             if taxon["Rank"] in name_list:
                 name_list[taxon["Rank"]] = [taxon["ScientificName"], taxon["TaxId"]]
+        genus_name = name_list["genus"][0]
+        name_list["strain"] = [strain,tax_id_strain]
         try:
             species_name_full = name_list["species"][0]
+            species_name_simple = species_name_full[len(genus_name) + 1:]
         except:
-            print(genus + " " + species + " " + strain)
-            print(tax_id_strain)
-            print(name_list)
-            sys.exit()
-        genus_name = name_list["genus"][0]
-        species_name_simple = species_name_full[len(genus_name) + 1:]
+            strain_name_full = record_strain["ScientificName"]
+            species_strain = strain_name_full[len(genus_name)+1:]
+            species_name_simple = species_strain[:-(len(strain)+1)]
         name_list["species"][0] = species_name_simple
-        name_list["strain"] = [strain,tax_id_strain]
     for i in name_list.keys():
         if name_list[i] == []:
             name_list[i] = ["N/A","N/A"]
