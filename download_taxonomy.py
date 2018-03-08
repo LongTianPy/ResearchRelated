@@ -65,10 +65,10 @@ def extract_taxonomy_by_taxid(tax_id,db):
             species_name_simple = species_name_full[len(genus_name) + 1:]
             name_list["species"][0] = species_name_simple
         else:
-            species_name_simple = str(db[db["Attribute_ID"==2]]["AttributeValue"])
+            species_name_simple = db.iloc[1,2]
             name_list["species"] = [species_name_simple,"N/A"]
         try:
-            strain_name_simple = str(db[db["Attribute_ID"==4]]["AttributeValue"])
+            strain_name_simple = db.iloc[3,2]
         except:
             strain_name_simple = "N/A"
         name_list["strain"] = [strain_name_simple, "N/A"]
