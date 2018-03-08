@@ -44,14 +44,13 @@ def extract_taxonomy_by_taxid(tax_id,db):
     record = Entrez.read(handler)[0]
     lineage_list = record["LineageEx"]
     if record["Rank"] == "no rank": # Case 1: This tax id points to the individual strain, then
-        strain_name_full = record["ScientificName"] # Full name: genus species strain, we dont need it be so long
         for taxon in lineage_list:
             if taxon["Rank"] in ranks:
                 name_list[taxon["Rank"]] = [taxon["ScientificName"],taxon["TaxId"]]
         species_name_full = name_list["species"][0]
         genus_name = name_list["genus"][0]
         species_name_simple = species_name_full[len(genus_name)+1:]
-        strain_name_simple = strain_name_full[len(species_name_full)+1:]
+        strain_name_simple = db.iloc[3,2]
         name_list["species"][0] = species_name_simple
         name_list["strain"] = [strain_name_simple,tax_id]
     else: # If this given tax id does not represent individual strain (Although I hope this case only happens in RefSeq)
