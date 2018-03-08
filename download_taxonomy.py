@@ -74,6 +74,7 @@ def extract_taxonomy_by_taxid(tax_id,db):
     for i in name_list.keys():
         if name_list[i] == []:
             name_list[i] = ["N/A","N/A"]
+    name_list["strain"][0] = " ".join(list(set(name_list["strain"][0].split(" "))))
     return name_list
 
 def extract_taxonomy_by_entry(db):
@@ -139,6 +140,7 @@ def extract_taxonomy_by_entry(db):
     for i in name_list.keys():
         if name_list[i] == []:
             name_list[i] = ["N/A","N/A"]
+    name_list["strain"][0] = " ".join(list(set(name_list["strain"][0].split(" "))))
     return name_list
 
 def write_taxonomy_to_db(c,conn,lineage,genome_id):
@@ -177,8 +179,8 @@ def main():
                 print(rank)
                 print(lineage[rank])
                 sys.exit()
-        df.to_csv("taxonomy_to_load.txt",sep='\t',header=True,index=True)
         # write_taxonomy_to_db(c_new,conn_new,lineage,Genome_ID)
+    df.to_csv("taxonomy_to_load.txt",sep='\t',header=True,index=True)
 
 
 # MAIN
