@@ -34,7 +34,7 @@ def extract_LINs(c):
 def find_LINgroups(LIN_df,idx,previous_level_LINgroups,LINgroup_total):
     this_level_LINgroups = {}
     for each_previous_LINgroup in previous_level_LINgroups.keys():
-        sub_df = LIN_df.loc[previous_level_LINgroups[each_previous_LINgroup].index]
+        sub_df = LIN_df.loc[previous_level_LINgroups[each_previous_LINgroup]]
         this_level_ids = list(set(sub_df[positions[idx]]))
         for each_id in this_level_ids:
             this_level_LINgroups[str(each_previous_LINgroup)+","+str(each_id)] = list(sub_df[sub_df[positions[idx]]==each_id].index)
