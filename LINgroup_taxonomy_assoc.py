@@ -64,7 +64,7 @@ def find_shared_lineage(LINgroup_key,LINgroups,taxonomy_df,described_LINgroups):
 
 def main():
     conn,c = connect_to_db("LINdb_NCBI_RefSeq_test")
-    taxonomy_df = pd.read_table("/Users/longtian/Desktop/LIN/taxonomy_to_load.txt",sep="\t",header=0,index_col=0)
+    taxonomy_df = pd.read_table("taxonomy_to_load.txt",sep="\t",header=0,index_col=0)
     LIN_df = extract_LINs(c)
     LINgroups_total = {}
     LINgroups = {}
