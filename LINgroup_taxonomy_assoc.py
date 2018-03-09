@@ -45,11 +45,12 @@ def find_LINgroups(LIN_df,idx,previous_level_LINgroups,LINgroup_total):
 def find_shared_lineage(LINgroup_key,LINgroups,taxonomy_df,described_LINgroups):
     members = LINgroups[LINgroup_key]
     sub_df = taxonomy_df.loc[members]
-    i = 0
     common_lineage = []
-    while len(set(sub_df[ranks[i]]))==1:
-        common_lineage.append(sub_df.iloc[0,i])
-        i += 1
+    for rank in ranks:
+        if len(set(list(sub_df[rank])))==1:
+            common_lineage.append(sub_df.iloc[0,1])
+        else:
+            break
     common_lineage = ";".join(common_lineage)
     if common_lineage not in described_LINgroups:
         described_LINgroups[common_lineage] = [LINgroup_key]
