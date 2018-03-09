@@ -191,8 +191,8 @@ def main():
                 print(rank)
                 print(lineage[rank])
                 sys.exit()
-        # write_taxonomy_to_db(c_new,conn_new,lineage,Genome_ID)
-    df.to_csv("taxonomy_to_load.txt",sep='\t',header=True,index=True)
+        write_taxonomy_to_db(c_new,conn_new,lineage,Genome_ID)
+    #df.to_csv("taxonomy_to_load.txt",sep='\t',header=True,index=True)
 
 
 # MAIN
