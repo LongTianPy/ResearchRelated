@@ -26,4 +26,5 @@ def jellyfish_dump(prefix):
 if __name__ == '__main__':
     genomes = [file for file in os.listdir(genome_dir) if file.endswith("fasta")]
     for genome in genomes:
-        jellyfish_dump(jellyfish_dump(genome))
+        prefix = jellyfish_count(genome)
+        jellyfish_dump(prefix)
