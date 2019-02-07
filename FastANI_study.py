@@ -35,7 +35,7 @@ def fetch_genomes_by_LINgroups(position,c):
     :return: dictionary {LINgroup:[genomes]}
     """
     position = position.upper()
-    c.execute("SELECT LIN.Genome_ID, LIN.LIN, Genome.FilePath FROM GENOME,LIN WHERE "
+    c.execute("SELECT LIN.Genome_ID, LIN.LIN, Genome.FilePath FROM Genome,LIN WHERE "
               "LIN.Scheme_ID=4")
     tmp = c.fetchall()
     Genome_ID = [int(i[0]) for i in tmp]
