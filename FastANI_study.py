@@ -75,7 +75,7 @@ def create_signatures(working_dir, df, final_LINgroups):
         each_working_dir = join(working_dir,each)
         os.mkdir(each_working_dir)
         for each_genome in final_LINgroups[each]:
-            filepath = df.loc[each_genome,"FilePath"]
+            filepath = str(df.loc[each_genome,"FilePath"])
             sig_path = join(each_working_dir, "{0}.sig".format(each_genome))
             os.system(cmd.format(filepath, sig_path))
 
