@@ -36,7 +36,7 @@ def fetch_genomes_by_LINgroups(position,c):
     """
     position = position.upper()
     c.execute("SELECT LIN.Genome_ID, LIN.LIN, Genome.FilePath FROM Genome,LIN WHERE "
-              "LIN.Scheme_ID=4")
+              "LIN.Scheme_ID=4 AND LIN.Genome_ID=Genome.Genome_ID")
     tmp = c.fetchall()
     Genome_ID = [int(i[0]) for i in tmp]
     LIN = [i[1] for i in tmp]
