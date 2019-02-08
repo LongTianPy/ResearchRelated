@@ -16,6 +16,7 @@ import os
 from os.path import isfile, isdir, join
 import pandas as pd
 import sys
+import shutil
 
 # VARIABLES
 sourmash_dir = "/home/linproject/Workspace/Sourmash2.0/all_sketches/"
@@ -70,7 +71,7 @@ def create_signatures(working_dir, df, final_LINgroups):
     """
     if not isdir(working_dir):
         os.mkdir(working_dir)
-    cmd = "sourmash compute {0} -k 11,15,21 -n 1000 -o {1} -q"
+    cmd = "sourmash compute {0} -k 11,15,21,31 -n 1000 -o {1} -q"
     for each in final_LINgroups:
         each_working_dir = join(working_dir,each)
         if not isdir(each_working_dir):
@@ -79,11 +80,12 @@ def create_signatures(working_dir, df, final_LINgroups):
             filepath = str(df.loc[each_genome,"FilePath"])
             sig_path = join(each_working_dir, "{0}.sig".format(each_genome))
             os.system(cmd.format(filepath, sig_path))
+            shutil.copy(sig_path,working_dir)
 
 def compare_each_LINgroup(working_dir, final_LINgroups):
     for each in final_LINgroups:
         each_working_dir = join(working_dir, each)
-        cmd = "sourmash compare {0}/*.sig -k 11,15,21 -o {0}/output.txt --csv {0}/output.csv -q"
+        cmd = "sourmash compare {0}/*.sig -k 21 -o {0}/output.txt --csv {0}/output.csv -q"
         os.system(cmd.format(each_working_dir))
 
 
