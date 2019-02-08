@@ -17,6 +17,8 @@ from os.path import isfile, isdir, join
 import pandas as pd
 import sys
 import shutil
+from scipy.cluster import hierarchy
+import json
 
 # VARIABLES
 sourmash_dir = "/home/linproject/Workspace/Sourmash2.0/all_sketches/"
@@ -71,7 +73,7 @@ def create_signatures(working_dir, df, final_LINgroups):
     """
     if not isdir(working_dir):
         os.mkdir(working_dir)
-    cmd = "sourmash compute {0} -k 11,15,21,31 -n 1000 -o {1} -q"
+    cmd = "sourmash compute {0} -k 11,15,21,31 -n 2000 -o {1} -q"
     for each in final_LINgroups:
         each_working_dir = join(working_dir,each)
         if not isdir(each_working_dir):
@@ -88,6 +90,43 @@ def compare_each_LINgroup(working_dir, final_LINgroups):
         cmd = "sourmash compare {0}/*.sig -k 21 -o {0}/output.txt --csv {0}/output.csv -q"
         os.system(cmd.format(each_working_dir))
 
+
+def cluster_by_threshold(working_dir,df, threshold):
+    print("Clustering genomes at jaccard similarity threshold of {0}".format(threshold))
+    samples = list(df.columns)
+    sample_distances = {}
+    for i in range(len(samples)):
+        for j in range(i + 1, len(samples)):
+            sample_distances[(samples[i], samples[j])] = 1 - df.loc[samples[i], samples[j]]
+    keys = [sorted(k) for k in sample_distances.keys()]
+    values = sample_distances.values()
+    sorted_keys, distances = zip(*sorted(zip(keys, values)))
+    Z = hierarchy.linkage(distances)
+    labels = sorted(set([key[0] for key in sorted_keys] + [sorted_keys[-1][-1]]))
+    # hierarchy.dendrogram(Z, labels=labels)
+    cutree = hierarchy.cut_tree(Z, height=threshold)
+    clusters = {}
+    for i in range(len(cutree)):
+        if str(cutree[i][0]) not in clusters:
+            clusters[str(cutree[i][0])] = [labels[i]]
+        else:
+            clusters[str(cutree[i][0])].append(labels[i])
+    with open(join(working_dir,"clusters_{0}.json".format(threshold)),"w") as f:
+        json.dump(clusters,f)
+    return clusters
+
+def validate_clusters(clusters):
+    for each in clusters.keys():
+        print(each)
+        genomes = clusters[each]
+        for genome in genomes:
+            c.execute("select Genome.Genome_ID,LIN.LIN from Genome,LIN where "
+                      "Genome.Genome_ID=LIN.Genome_ID and "
+                      "Genome.FilePath='{0}'".format(genome))
+            tmp = c.fetchone()
+            genome_id = int(tmp[0])
+            lin = tmp[1]
+            print("{0}\t{1}".format(genome_id,lin))
 
 # MAIN
 if __name__ == '__main__':
