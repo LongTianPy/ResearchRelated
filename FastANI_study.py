@@ -70,7 +70,7 @@ def create_signatures(working_dir, df, final_LINgroups):
     """
     if not isdir(working_dir):
         os.mkdir(working_dir)
-    cmd = "sourmash compute {0} -k 15,21 -n 1000 -o {1} -q"
+    cmd = "sourmash compute {0} -k 11,15,21 -n 1000 -o {1} -q"
     for each in final_LINgroups:
         each_working_dir = join(working_dir,each)
         if not isdir(each_working_dir):
@@ -83,7 +83,7 @@ def create_signatures(working_dir, df, final_LINgroups):
 def compare_each_LINgroup(working_dir, final_LINgroups):
     for each in final_LINgroups:
         each_working_dir = join(working_dir, each)
-        cmd = "sourmash compare {0}/*.sig -k 21 -o {0}/output.txt --csv {0}/output.csv -q"
+        cmd = "sourmash compare {0}/*.sig -k 11,15,21 -o {0}/output.txt --csv {0}/output.csv -q"
         os.system(cmd.format(each_working_dir))
 
 
