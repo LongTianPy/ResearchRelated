@@ -75,6 +75,7 @@
       <w>.Platform</w>
       <w>.PlotPhyloEnv</w>
       <w>.Primitive</w>
+      <w>.RtangleCodeLabel</w>
       <w>.S3PrimitiveGenerics</w>
       <w>.S3methods</w>
       <w>.S4methods</w>
@@ -792,6 +793,7 @@
       <w>.colSums</w>
       <w>.compressTipLabel</w>
       <w>.data</w>
+      <w>.debugMethod</w>
       <w>.decode_numeric_version</w>
       <w>.dense2sy</w>
       <w>.deparseOpts</w>
@@ -826,6 +828,7 @@
       <w>.igraph.progress</w>
       <w>.igraph.status</w>
       <w>.inplaceReplaceLetterAt</w>
+      <w>.isMethodDebugged</w>
       <w>.isMethodsDispatchOn</w>
       <w>.isOpen</w>
       <w>.kappa_tri</w>
@@ -887,7 +890,9 @@
       <w>.symDiagonal</w>
       <w>.trDiagonal</w>
       <w>.traceback</w>
+      <w>.tryResumeInterrupt</w>
       <w>.uncompressTipLabel</w>
+      <w>.undebugMethod</w>
       <w>.untracedFunction</w>
       <w>.updateCHMfactor</w>
       <w>.userHooksEnv</w>
@@ -1013,6 +1018,11 @@
       <w>CNES</w>
       <w>CO2</w>
       <w>CRAN.packages</w>
+      <w>CRAN_check_details</w>
+      <w>CRAN_check_issues</w>
+      <w>CRAN_check_results</w>
+      <w>CRAN_memtest_notes</w>
+      <w>CRAN_package_db</w>
       <w>C_additive</w>
       <w>C_bionj</w>
       <w>C_bionjs</w>
@@ -1498,6 +1508,7 @@
       <w>LTT</w>
       <w>LUV</w>
       <w>La.svd</w>
+      <w>La_library</w>
       <w>La_version</w>
       <w>Label</w>
       <w>Label.data.frame</w>
@@ -3680,6 +3691,7 @@
       <w>add_edges</w>
       <w>add_layout_</w>
       <w>add_margins</w>
+      <w>add_op_single</w>
       <w>add_row</w>
       <w>add_rownames</w>
       <w>add_shape</w>
@@ -4221,6 +4233,7 @@
       <w>as.shiny.appobj</w>
       <w>as.single</w>
       <w>as.single.default</w>
+      <w>as.sql</w>
       <w>as.stepfun</w>
       <w>as.svrepdesign</w>
       <w>as.svydesign2</w>
@@ -4469,7 +4482,14 @@
       <w>base64decode</w>
       <w>base64enc</w>
       <w>base64encode</w>
+      <w>base_agg</w>
       <w>base_env</w>
+      <w>base_no_win</w>
+      <w>base_odbc_agg</w>
+      <w>base_odbc_scalar</w>
+      <w>base_odbc_win</w>
+      <w>base_scalar</w>
+      <w>base_win</w>
       <w>baseball</w>
       <w>baseenv</w>
       <w>basehaz</w>
@@ -4764,6 +4784,7 @@
       <w>build.nblist</w>
       <w>buildVignette</w>
       <w>buildVignettes</w>
+      <w>build_sql</w>
       <w>build_tax_table</w>
       <w>builtins</w>
       <w>bus</w>
@@ -5048,6 +5069,7 @@
       <w>check_mnsl</w>
       <w>check_packages_in_dir</w>
       <w>check_packages_in_dir_changes</w>
+      <w>check_packages_in_dir_details</w>
       <w>check_tzones</w>
       <w>checkboxGroupInput</w>
       <w>checkboxInput</w>
@@ -5584,6 +5606,8 @@
       <w>copyDependencyToDir</w>
       <w>copyEnv</w>
       <w>copySubstitute</w>
+      <w>copy_lahman</w>
+      <w>copy_nycflights13</w>
       <w>copy_to</w>
       <w>cor</w>
       <w>cor.dendlist</w>
@@ -5946,7 +5970,10 @@
       <w>dbWriteTable</w>
       <w>db_analyze</w>
       <w>db_begin</w>
+      <w>db_collect</w>
       <w>db_commit</w>
+      <w>db_compute</w>
+      <w>db_copy_to</w>
       <w>db_create_index</w>
       <w>db_create_indexes</w>
       <w>db_create_table</w>
@@ -5961,6 +5988,7 @@
       <w>db_query_rows</w>
       <w>db_rollback</w>
       <w>db_save_query</w>
+      <w>db_sql_render</w>
       <w>db_write_table</w>
       <w>dbconn</w>
       <w>dbd</w>
@@ -5973,6 +6001,7 @@
       <w>dbl_len</w>
       <w>dblclickOpts</w>
       <w>dbmeta</w>
+      <w>dbplyr</w>
       <w>dbrda</w>
       <w>dbscan</w>
       <w>dbscanCBI</w>
@@ -5998,6 +6027,7 @@
       <w>debugSQL</w>
       <w>debug_fseq</w>
       <w>debug_pipe</w>
+      <w>debugcall</w>
       <w>debugger</w>
       <w>debuggingState</w>
       <w>debugonce</w>
@@ -6708,6 +6738,7 @@
       <w>errorCondition</w>
       <w>errorSubstitutionMatrices</w>
       <w>esApply</w>
+      <w>escape</w>
       <w>escapeBS</w>
       <w>escapeRegex</w>
       <w>escopage</w>
@@ -8261,9 +8292,11 @@
       <w>has_file</w>
       <w>has_file_pattern</w>
       <w>has_internet</w>
+      <w>has_lahman</w>
       <w>has_length</w>
       <w>has_name</w>
       <w>has_nodePar</w>
+      <w>has_nycflights13</w>
       <w>has_rownames</w>
       <w>has_style</w>
       <w>hash</w>
@@ -8487,6 +8520,7 @@
       <w>idConverter</w>
       <w>idata.frame</w>
       <w>ident</w>
+      <w>ident_q</w>
       <w>identical</w>
       <w>identical_graphs</w>
       <w>identify</w>
@@ -8577,6 +8611,7 @@
       <w>inSide</w>
       <w>in_circle</w>
       <w>in_gamut</w>
+      <w>in_schema</w>
       <w>incProgress</w>
       <w>inchol</w>
       <w>incident</w>
@@ -8808,6 +8843,7 @@
       <w>is.hierarchical</w>
       <w>is.hms</w>
       <w>is.idempotent.matrix</w>
+      <w>is.ident</w>
       <w>is.igraph</w>
       <w>is.imputed</w>
       <w>is.indefinite</w>
@@ -8900,6 +8936,7 @@
       <w>is.sorted</w>
       <w>is.source</w>
       <w>is.special.miss</w>
+      <w>is.sql</w>
       <w>is.square.matrix</w>
       <w>is.src</w>
       <w>is.stepfun</w>
@@ -8963,9 +9000,11 @@
       <w>isNormal</w>
       <w>isOpen</w>
       <w>isRedundantHit</w>
+      <w>isRematched</w>
       <w>isRestart</w>
       <w>isRunning</w>
       <w>isS3method</w>
+      <w>isS3stdGeneric</w>
       <w>isS4</w>
       <w>isSQLKeyword</w>
       <w>isSQLKeyword.default</w>
@@ -9158,6 +9197,7 @@
       <w>join.keys</w>
       <w>joinCells</w>
       <w>join_all</w>
+      <w>join_query</w>
       <w>jpeg</w>
       <w>jsonlite</w>
       <w>jtest</w>
@@ -9334,6 +9374,11 @@
       <w>ladderize</w>
       <w>lag</w>
       <w>lag.plot</w>
+      <w>lahman_df</w>
+      <w>lahman_mysql</w>
+      <w>lahman_postgres</w>
+      <w>lahman_sqlite</w>
+      <w>lahman_srcs</w>
       <w>lalonde</w>
       <w>lang</w>
       <w>langElts</w>
@@ -9459,6 +9504,7 @@
       <w>lazy_</w>
       <w>lazy_dots</w>
       <w>lazy_eval</w>
+      <w>lazy_frame</w>
       <w>lazyeval</w>
       <w>lbeta</w>
       <w>lbfgs</w>
@@ -10155,6 +10201,7 @@
       <w>memDecompress</w>
       <w>members</w>
       <w>membership</w>
+      <w>memdb_frame</w>
       <w>memoise</w>
       <w>memoize</w>
       <w>memory.limit</w>
@@ -10554,6 +10601,7 @@
       <w>nafitted.delete</w>
       <w>naiveBayes</w>
       <w>name_rows</w>
+      <w>named_commas</w>
       <w>names</w>
       <w>names.POSIXlt</w>
       <w>names.hash</w>
@@ -10866,6 +10914,8 @@
       <w>nvalid</w>
       <w>nvar</w>
       <w>nwtco</w>
+      <w>nycflights13_postgres</w>
+      <w>nycflights13_sqlite</w>
       <w>nzchar</w>
       <w>oPar</w>
       <w>oats</w>
@@ -10920,6 +10970,13 @@
       <w>oneway</w>
       <w>oneway.test</w>
       <w>onlearn</w>
+      <w>op_base</w>
+      <w>op_double</w>
+      <w>op_frame</w>
+      <w>op_grps</w>
+      <w>op_single</w>
+      <w>op_sort</w>
+      <w>op_vars</w>
       <w>open</w>
       <w>open.connection</w>
       <w>open.srcfile</w>
@@ -11057,6 +11114,7 @@
       <w>packageStatus</w>
       <w>packageVersion</w>
       <w>package_dependencies</w>
+      <w>package_native_routine_registration_skeleton</w>
       <w>package_version</w>
       <w>packet.number</w>
       <w>packet.panel.default</w>
@@ -11297,6 +11355,7 @@
       <w>partial</w>
       <w>partial.cor</w>
       <w>partial_eigen</w>
+      <w>partial_eval</w>
       <w>particles3d</w>
       <w>partition.matrix</w>
       <w>partition.vector</w>
@@ -11929,6 +11988,7 @@
       <w>print.dvi</w>
       <w>print.dynrq</w>
       <w>print.dynrqs</w>
+      <w>print.eigen</w>
       <w>print.evonet</w>
       <w>print.factor</w>
       <w>print.find.matches</w>
@@ -13566,6 +13626,7 @@
       <w>select_all</w>
       <w>select_at</w>
       <w>select_if</w>
+      <w>select_query</w>
       <w>select_var</w>
       <w>select_vars</w>
       <w>select_vars_</w>
@@ -13580,6 +13641,7 @@
       <w>sem</w>
       <w>semat</w>
       <w>semi_join</w>
+      <w>semi_join_query</w>
       <w>sendToConsole</w>
       <w>senso</w>
       <w>sentences</w>
@@ -13697,6 +13759,7 @@
       <w>set_hooks</w>
       <w>set_labels</w>
       <w>set_names</w>
+      <w>set_op_query</w>
       <w>set_palette</w>
       <w>set_parent</w>
       <w>set_rownames</w>
@@ -13875,6 +13938,16 @@
       <w>simulateModule</w>
       <w>simulateMultiExpr</w>
       <w>simulateSmallLayer</w>
+      <w>simulate_dbi</w>
+      <w>simulate_hive</w>
+      <w>simulate_impala</w>
+      <w>simulate_mssql</w>
+      <w>simulate_mysql</w>
+      <w>simulate_odbc</w>
+      <w>simulate_odbc_postgresql</w>
+      <w>simulate_oracle</w>
+      <w>simulate_postgres</w>
+      <w>simulate_sqlite</w>
       <w>simule</w>
       <w>sin</w>
       <w>singer</w>
@@ -14134,14 +14207,26 @@
       <w>sqlParseVariablesImpl</w>
       <w>sqlQuoteSpec</w>
       <w>sqlRownamesToColumn</w>
+      <w>sql_build</w>
+      <w>sql_cast</w>
       <w>sql_escape_ident</w>
+      <w>sql_escape_logical</w>
       <w>sql_escape_string</w>
+      <w>sql_infix</w>
       <w>sql_join</w>
+      <w>sql_not_supported</w>
+      <w>sql_optimise</w>
+      <w>sql_prefix</w>
+      <w>sql_quote</w>
+      <w>sql_render</w>
       <w>sql_select</w>
       <w>sql_semi_join</w>
       <w>sql_set_op</w>
       <w>sql_subquery</w>
       <w>sql_translate_env</w>
+      <w>sql_translator</w>
+      <w>sql_variant</w>
+      <w>sql_vector</w>
       <w>sqliteBuildTableDefinition</w>
       <w>sqliteCopyDatabase</w>
       <w>sqliteQuickColumn</w>
@@ -14162,10 +14247,13 @@
       <w>srPhiX174</w>
       <w>srand</w>
       <w>src</w>
+      <w>src_dbi</w>
       <w>src_df</w>
       <w>src_local</w>
+      <w>src_memdb</w>
       <w>src_mysql</w>
       <w>src_postgres</w>
+      <w>src_sql</w>
       <w>src_sqlite</w>
       <w>src_tbls</w>
       <w>srcfile</w>
@@ -14349,6 +14437,7 @@
       <w>stratify</w>
       <w>stratsample</w>
       <w>strbreak</w>
+      <w>strcapture</w>
       <w>stream_in</w>
       <w>stream_out</w>
       <w>stree</w>
@@ -14688,6 +14777,7 @@
       <w>summarize</w>
       <w>summarizeRobWeights</w>
       <w>summarize_</w>
+      <w>summarize_CRAN_check_status</w>
       <w>summarize_all</w>
       <w>summarize_at</w>
       <w>summarize_check_packages_in_dir_depends</w>
@@ -14990,7 +15080,9 @@
       <w>tblNoNext</w>
       <w>tbl_cube</w>
       <w>tbl_df</w>
+      <w>tbl_lazy</w>
       <w>tbl_nongroup_vars</w>
+      <w>tbl_sql</w>
       <w>tbl_sum</w>
       <w>tbl_vars</w>
       <w>tbody_style</w>
@@ -15070,6 +15162,10 @@
       <w>testSelectArgs</w>
       <w>testTransform</w>
       <w>testVirtual</w>
+      <w>test_frame</w>
+      <w>test_load</w>
+      <w>test_register_con</w>
+      <w>test_register_src</w>
       <w>testdim</w>
       <w>tetragonula</w>
       <w>tetrahedron3d</w>
@@ -15577,6 +15673,8 @@
       <w>transitivity</w>
       <w>translate</w>
       <w>translate3d</w>
+      <w>translate_sql</w>
+      <w>translate_sql_</w>
       <w>translationMatrix</w>
       <w>transmute</w>
       <w>transmute_</w>
@@ -15748,6 +15846,7 @@
       <w>unclass_dend</w>
       <w>undebug</w>
       <w>undebug_fseq</w>
+      <w>undebugcall</w>
       <w>underline</w>
       <w>undirected_graph</w>
       <w>undoc</w>
@@ -16160,14 +16259,25 @@
       <w>widthDetails</w>
       <w>wilcox.test</w>
       <w>wilkinson</w>
+      <w>win_absent</w>
+      <w>win_cumulative</w>
+      <w>win_current_frame</w>
+      <w>win_current_group</w>
+      <w>win_current_order</w>
+      <w>win_over</w>
+      <w>win_rank</w>
+      <w>win_recycled</w>
       <w>window</w>
       <w>window.Vector</w>
+      <w>window_frame</w>
+      <w>window_order</w>
       <w>wine</w>
       <w>wire3d</w>
       <w>wireframe</w>
       <w>wisconsin</w>
       <w>with</w>
       <w>with.default</w>
+      <w>withAutoprint</w>
       <w>withCallingHandlers</w>
       <w>withLogErrors</w>
       <w>withMathJax</w>

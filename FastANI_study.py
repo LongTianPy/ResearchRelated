@@ -19,6 +19,7 @@ import sys
 import shutil
 from scipy.cluster import hierarchy
 import json
+import operator
 
 # VARIABLES
 sourmash_dir = "/home/linproject/Workspace/Sourmash2.0/all_sketches/"
@@ -115,18 +116,78 @@ def cluster_by_threshold(working_dir,df, threshold):
         json.dump(clusters,f)
     return clusters
 
-def validate_clusters(clusters):
-    for each in clusters.keys():
+def describe_clusters(clusters):
+    clusters_sorted = sorted(clusters,key=lambda x:clusters[x])
+    for each in clusters_sorted:
         print(each)
         genomes = clusters[each]
         for genome in genomes:
-            c.execute("select Genome.Genome_ID,LIN.LIN from Genome,LIN where "
+            c.execute("select Genome.Genome_ID,LIN.LIN,NCBI_Tax_ID.Taxon from Genome,LIN,Taxonomy,NCBI_Tax_ID where "
                       "Genome.Genome_ID=LIN.Genome_ID and "
+                      "Taxonomy.Genome_ID=Genome.Genome_ID and "
+                      "Taxonomy.NCBI_Tax_ID=NCBI_Tax_ID.NCBI_Tax_ID and "
+                      "Taxonomy.Rank_ID=6 and "
                       "Genome.FilePath='{0}'".format(genome))
             tmp = c.fetchone()
             genome_id = int(tmp[0])
             lin = tmp[1]
-            print("{0}\t{1}".format(genome_id,lin))
+            genus = tmp[2]
+            print("{0}\t{2}\t{1}".format(genome_id,lin,genus))
+
+def retrieve_meta(each_cluster,c):
+    genome_ids = []
+    LINs = []
+    for i in each_cluster:
+        c.execute('SELECT Genome.Genome_ID,LIN.LIN FROM Genome,LIN WHERE '
+                  'Genome.Genome_ID=LIN.Genome_ID AND '
+                  'Genome.FilePath="{0}"'.format(i))
+        tmp = c.fetchone()
+        genome_id = str(tmp[0])
+        lin = tmp[1]
+        genome_ids.append(genome_id)
+        LINs.append(lin)
+    for i in range(1,8):
+        c.execute('SELECT Taxonomic_ranks.Rank, Taxonomy.NCBI_Tax_ID,NCBI_Tax_ID.Taxon FROM Taxonomy, NCBI_Tax_ID,Taxonomic_ranks WHERE '
+                  'Taxonomy.Genome_ID in ({0}) AND '
+                  'NCBI_Tax_ID.NCBI_Tax_ID=Taxonomy.NCBI_Tax_ID AND '
+                  'Taxonomy.Rank_ID=Taxonomic_ranks.Rank_ID AND '
+                  'Taxonomy.Rank_ID={1}'.format(",".join(genome_ids), i))
+        tmp = c.fetchall()
+        tax_id = [res[1] for res in tmp]
+        if len(set(tax_id)) == 1:
+            lca = [tmp[0][0],tmp[0][2]]
+        else:
+            break
+    LINs = [i.split(",") for i in LINs]
+    i=0
+    common_LINgroup = ''
+    while i<8:
+        LINgroups = [','.join(lin[:i]) for lin in LINs]
+        if len(set(LINgroups)) == 1:
+            common_LINgroup = LINgroups[0]
+            i += 1
+        else:
+            break
+    return lca, common_LINgroup
+
+def validate_clusters(working_dir, df):
+    threshold = 0.89
+    step = 0.0005
+    positions = list(string.ascii_uppercase)[:20]
+    while threshold > 0:
+        clusters = cluster_by_threshold(working_dir,df,threshold)
+        with open(join(working_dir, 'cluster_{0}.txt').format(1-threshold),'w') as f:
+            f.write('Threshold\tRank\tTaxon\tLINgroup\tPosition\tSize\n')
+            for each in clusters:
+                lca, common_LINgroup = retrieve_meta(clusters[each],c)
+                position = positions[len(common_LINgroup.split(','))-1]
+                # print('{0}\t{1}\t{2}\t{3}\n'.format(1-threshold, lca[0], lca[1], common_LINgroup, position))
+                f.write('{0}\t{1}\t{2}\t{3}\t{4}\n'.format(1-threshold, lca[0], lca[1], common_LINgroup, position,len(clusters[each])))
+        threshold = threshold - step
+
+
+
+
 
 # MAIN
 if __name__ == '__main__':
